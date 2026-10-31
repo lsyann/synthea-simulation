@@ -15,6 +15,20 @@ from . import assistant, db, experiments, knowledge, optimize, printing, process
 from .science import expression, nutrition, registry, thermal
 
 app = FastAPI(title="Synthea Simulation API", version="2.0.0")
+
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Replace with your frontend domain once deployed
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 _TOKEN = os.environ.get("SYNTHEA_TOKEN")
 # Browser dev server and the Tauri webview origins only.
 app.add_middleware(
